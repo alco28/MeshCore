@@ -1,7 +1,8 @@
 #pragma once
 
-#ifdef PIN_VIBRATION
 
+
+#ifdef PIN_VIBRATION
 #include <Arduino.h>
 
 /*
