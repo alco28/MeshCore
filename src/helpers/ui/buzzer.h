@@ -34,14 +34,13 @@ class genericBuzzer
         void quiet(bool buzzer_state);  // enables or disables the buzzer
         bool isQuiet();  // get buzzer state on/off
 
-        // RTTTL melodies as class members for better maintainability
-        const char *startup_song     = "Startup:d=4,o=5,b=160:16c6,16e6,8g6";
-        const char *shutdown_song    = "Shutdown:d=4,o=5,b=100:8g5,16e5,16c5";
-        const char *message_song     = "MsgRcv3:d=4,o=6,b=200:32e,32g,32b,16c7";
-        const char *discovery_song   = "Discovery:d=4,o=5,b=180:8e6,8d6,8c6";
-        // Slightly tuned channel and ack sounds
-        const char *channel_song     = "kerplop:d=16,o=6,b=140:16g#,8c#"; // Tuned: slightly longer and higher tempo
-        const char *ack_song         = "ack:d=16,o=8,b=140:c8,8c6"; // Tuned: second beep longer, higher tempo
+        // Example RTTTL melodies for startup/shutdown/message/discovery
+        const char *startup_song    = "Startup:d=4,o=5,b=160:16c6,16e6,8g6";
+        const char *shutdown_song   = "Shutdown:d=4,o=5,b=100:8g5,16e5,16c5";
+        const char *message_song    = "MsgRcv3:d=4,o=6,b=200:32e,32g,32b,16c7";
+        const char *discovery_song  = "Discovery:d=4,o=5,b=180:8e6,8d6,8c6";
+        const char *channel_song    = "kerplop:d=16,o=6,b=120:32g#,16c#"; // more of a "plop" sound for channel change
+        const char *ack_song        = "ack:d=16,o=8,b=120:c8,c6"; // Two beeps: first high (C8), then low (C6)
 
     private:
         bool _is_quiet = true;
