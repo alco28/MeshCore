@@ -1,18 +1,17 @@
 {
-	"version": "2.0.0",
-	"tasks": [
-		{
-			"label": "PlatformIO Build",
-			"type": "shell",
-			"command": "platformio",
-			"args": [
-				"run"
-			],
-			"isBackground": false,
-			"problemMatcher": [
-				"$platformio"
-			],
-			"group": "build"
-		}
-	]
+    // PlatformIO build task for VS Code
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "PlatformIO Build",
+            "type": "shell",
+            "command": "platformio",
+            "args": [
+                "run"
+            ],
+            "group": "build",
+            "isBackground": false,
+            "problemMatcher": []
+        }
+    ]
 }

@@ -16,3 +16,6 @@ cmake-*
 compile_commands.json
 .venv/
 venv/
+
+# Exclude heltec_v4 platformio config
+variants/heltec_v4/platformio.ini
