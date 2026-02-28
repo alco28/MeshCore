@@ -109,7 +109,8 @@ switch(t){
     break;
 }
 #endif
-  // Vibration feedback indien niet quiet
+  // Vibration feedback of not quiet
+  //
   #ifdef PIN_VIBRATION
   if (_node_prefs && !_node_prefs->vibration_quiet && t != UIEventType::none) {
     vibration.trigger();
