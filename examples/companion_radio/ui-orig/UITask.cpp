@@ -109,8 +109,12 @@ switch(t){
     break;
 }
 #endif
-//  Serial.print("DBG:  Alert user -> ");
-//  Serial.println((int) t);
+  // Vibration feedback indien niet quiet
+  #ifdef PIN_VIBRATION
+  if (_node_prefs && !_node_prefs->vibration_quiet && t != UIEventType::none) {
+    vibration.trigger();
+  }
+  #endif
 }
 
 void UITask::msgRead(int msgcount) {
@@ -438,9 +442,31 @@ void UITask::handleButtonQuadruplePress() {
 
 void UITask::handleButtonLongPress() {
   MESH_DEBUG_PRINTLN("UITask: long press triggered");
-  if (millis() - ui_started_at < 8000) {   // long press in first 8 seconds since startup -> CLI/rescue
+  static unsigned long lastLongPressTime = 0;
+  static bool waitingForRelease = false;
+  unsigned long now = millis();
+  if (millis() - ui_started_at < 8000) {
     the_mesh.enterCLIRescue();
-  } else {
-    shutdown();
+    return;
   }
+  // Detect long-press >5s for vibration toggle
+  if (!waitingForRelease) {
+    lastLongPressTime = now;
+    waitingForRelease = true;
+    return;
+  }
+  if (waitingForRelease && (now - lastLongPressTime > 5000)) {
+    // Toggle vibration quiet
+    #ifdef PIN_VIBRATION
+    _node_prefs->vibration_quiet = !_node_prefs->vibration_quiet;
+    the_mesh.savePrefs();
+    sprintf(_alert, _node_prefs->vibration_quiet ? "Vibration: OFF" : "Vibration: ON");
+    _need_refresh = true;
+    #endif
+    waitingForRelease = false;
+    return;
+  }
+  // Normal long-press (shutdown)
+  shutdown();
+  waitingForRelease = false;
 }
